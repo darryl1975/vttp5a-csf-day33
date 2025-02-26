@@ -1,1 +1,62 @@
-<p>member works!</p>
+
+<div class="container col-6">
+    <h1>Create New Member</h1>
+    <br>
+    <!-- Validation - refers to day32 slide 17 and slide 19 -->
+    <form [formGroup]="memberForm" (ngSubmit)="processMemberForm()">
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" formControlName="name" class="form-control">
+            <div class="alert alert-danger" *ngIf="memberForm.get('name')?.errors?.['required'] ">Name is required</div>
+            <div class="alert alert-danger" *ngIf="memberForm.get('name')?.errors?.['minlength'] ">Name must be minimum
+                5 characters long</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" formControlName="email" class="form-control">
+            <div class="alert alert-danger" *ngIf="memberForm.get('email')?.errors?.['required']">Email is required
+            </div>
+            <div class="alert alert-danger" *ngIf="memberForm.get('email')?.errors?.['email'] ">Incorrect Email format
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="mobileNo" class="form-label">Mobile Number</label>
+            <input type="text" formControlName="mobileNo" class="form-control">
+            <div class="alert alert-danger" *ngIf="memberForm.get('mobileNo')?.invalid ">Mobile is required</div>
+        </div>
+
+        <div>
+            <h2>Hobbies</h2>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-success" (click)="addNewHobby()">+ Add</button>
+            <hr><br>
+            <div formArrayName="hobbies">
+                <div *ngFor="let hobby of hobbies.controls; let i = index">
+                    <input type="text" [formControlName]="i" class="form-control">
+                    <button type="button" class="btn btn-danger" (click)="removeHobby(i)">Remove</button>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        <div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+<br><br><br><br>
+<div>Member</div>
+<br>
+<div>Name {{member.name}}</div>
+<br>
+<div>Email {{member.email}}</div>
+<br>
+<div>Mobile Number {{member.mobileNo}}</div>
+<br>
+<div>Hobbies {{member.hobbies}}</div>
+
+<br><br><br><br>
+{{ this.memberForm.value | json }}
