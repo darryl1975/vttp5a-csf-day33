@@ -17,7 +17,6 @@ export class AppComponent implements AfterViewInit, OnInit, DoCheck {
 
   @ViewChild("myImg") imageElement?: ElementRef;
   
-
   ngOnInit(): void {
     this.isShow = true;
   }

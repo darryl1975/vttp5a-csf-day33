@@ -1,1 +1,37 @@
 <p>{{ childText }}</p>
+
+
+<br><br>
+<h1>Products</h1>
+<br>
+<br>
+
+<p>
+    <button type="button" (click)="addProduct()">Add</button>
+</p>
+
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+
+    <div formArrayName="products">
+        <div *ngFor="let product of products.controls; let i=index">
+            <div [formGroupName]="i">
+                {{i}}
+                product name :
+                <input type="text" formControlName="name">
+                description:
+                <input type="text" formControlName="description">
+                quantity
+                <input type="number" formControlName="qty">
+                <button (click)="removeProduct(i)">Remove</button>
+            </div>
+        </div>
+    </div>
+
+    <p>
+        <button type="submit">Submit</button>
+    </p>
+
+</form>
+
+
+{{this.productForm.value | json}}
